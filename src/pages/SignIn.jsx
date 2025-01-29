@@ -35,6 +35,7 @@ const SignIn = () => {
          
 
             dispatch(loginSuccess({ token, user: userResponse.data.body})); // Stocke le token
+            
             navigate('/user'); // Redirige vers la page User après connexion
         } catch (error) {
             console.error('Erreur de connexion :', error); // Affiche l'erreur en console

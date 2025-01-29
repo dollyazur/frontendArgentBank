@@ -1,33 +1,36 @@
-import { Link } from 'react-router-dom'; // Import de Link
+import{ useSelector } from 'react-redux';
 import '../assets/css/main.css'; // Import du CSS
 import logo from '../assets/images/argentBankLogo.png'; // Import du logo
 
 const User = () => {
+    const user = useSelector((state) => state.user.user); // Récupère l'utilisateur depuis Redux
+
     return (
         <>
             <nav className="main-nav">
-    <Link className="main-nav-logo" to="/">
+            <a className="main-nav-logo" href="/">
+
         <img
             className="main-nav-logo-image"
             src={logo} // Chemin corrigé pour le logo
             alt="Argent Bank Logo"
         />
         <h1 className="sr-only">Argent Bank</h1>
-    </Link>
+ </a>
     <div>
-        <Link className="main-nav-item" to="/">
+        <span className="main-nav-item">
             <i className="fa fa-user-circle"></i>
-            Tony
-        </Link>
-        <Link className="main-nav-item" to="/">
+            {user ? user.firstName : "Utilisateur"} {/* Affiche le prénom de l'utilisateur connecté */}
+        </span>
+        <a className="main-nav-item" href="/">
             <i className="fa fa-sign-out"></i>
             Sign Out
-        </Link>
+        </a>
     </div>
 </nav>
             <main className="main bg-dark">
                 <div className="header">
-                    <h1>Welcome back<br />Tony Jarvis!</h1>
+                    <h1>Welcome back<br />{user ? user.firstName : "Utilisateur"} {user ? user.lastName : ""}!</h1>
                     <button className="edit-button">Edit Name</button>
                 </div>
                 <h2 className="sr-only">Accounts</h2>
