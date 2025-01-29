@@ -22,3 +22,9 @@ const userSlice = createSlice({
 
 export const { loginSuccess, logout } = userSlice.actions;
 export default userSlice.reducer;
+
+//Explication du code :
+//initialState : L'état initial contient token (pour la connexion) et user (les infos de l'utilisateur).
+//loginSuccess : Met à jour token et user quand l'utilisateur se connecte.
+//logout : Réinitialise l'état quand l'utilisateur se déconnecte.
+//store.js : Ajoute userSlice au store Redux.
