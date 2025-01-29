@@ -1,18 +1,42 @@
-
-import { Link } from 'react-router-dom'; // Import de Link
-import '../assets/css/main.css'; 
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { loginSuccess } from '../redux/userSlice';
+import '../assets/css/main.css';
 import logo from '../assets/images/argentBankLogo.png';
 
 const SignIn = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        setError('');
+
+        try {
+            const response = await axios.post('http://localhost:3001/api/v1/user/login', {
+                email,
+                password,
+            });
+
+            const { token } = response.data.body;
+            dispatch(loginSuccess({ token, user: null })); // Stocke le token
+            navigate('/user'); // Redirige vers la page User après connexion
+        } catch (error) {
+            console.error('Erreur de connexion :', error); // Affiche l'erreur en console
+            setError('Email ou mot de passe incorrect.');
+        }
+    };
+
     return (
         <>
             <nav className="main-nav">
                 <a className="main-nav-logo" href="/">
-                    <img
-                        className="main-nav-logo-image"
-                        src={logo}
-                        alt="Argent Bank Logo"
-                    />
+                    <img className="main-nav-logo-image" src={logo} alt="Argent Bank Logo" />
                     <h1 className="sr-only">Argent Bank</h1>
                 </a>
                 <div>
@@ -26,26 +50,35 @@ const SignIn = () => {
                 <section className="sign-in-content">
                     <i className="fa fa-user-circle sign-in-icon"></i>
                     <h1>Sign In</h1>
-                    <form>
+                    <form onSubmit={handleLogin}>
                         <div className="input-wrapper">
-                            <label htmlFor="username">Username</label>
-                            <input type="text" id="username" />
+                            <label htmlFor="email">Email</label>
+                            <input
+                                type="email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
                         </div>
                         <div className="input-wrapper">
                             <label htmlFor="password">Password</label>
-                            <input type="password" id="password" />
+                            <input
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
                         </div>
                         <div className="input-remember">
                             <input type="checkbox" id="remember-me" />
                             <label htmlFor="remember-me">Remember me</label>
                         </div>
-                        {/* PLACEHOLDER DUE TO STATIC SITE */}
-                        <Link to="/user" className="sign-in-button">
-    Sign In
-</Link>
-
-                        {/* SHOULD BE THE BUTTON BELOW */}
-                        {/* <button className="sign-in-button">Sign In</button> */}
+                        {error && <p className="error-message">{error}</p>}
+                        <button type="submit" className="sign-in-button">
+                            Sign In
+                        </button>
                     </form>
                 </section>
             </main>
