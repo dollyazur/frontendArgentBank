@@ -26,16 +26,15 @@ const SignIn = () => {
             const { token } = response.data.body;
 
             //deux users donc tenir compte du token pour récup les infos
-            const userResponse = await axios.post(
+            const userResponse = await axios.get(
                 'http://localhost:3001/api/v1/user/profile',
-                {},
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-    
-         
-
-            dispatch(loginSuccess({ token, user: userResponse.data.body})); // Stocke le token
             
+        
+            dispatch(loginSuccess({ token, user: userResponse.data.body})); // Stocke le token
+
+           
             navigate('/user'); // Redirige vers la page User après connexion
         } catch (error) {
             console.error('Erreur de connexion :', error); // Affiche l'erreur en console
