@@ -17,14 +17,21 @@ const userSlice = createSlice({
             state.token = null;
             state.user = null;
         },
+        updateUser: (state, action) => {
+            if (state.user) {
+                state.user = { ...state.user, ...action.payload };
+            }
+        },
     },
 });
 
-export const { loginSuccess, logout } = userSlice.actions;
+export const { loginSuccess, logout, updateUser } = userSlice.actions;
 export default userSlice.reducer;
 
-//Explication du code :
-//initialState : L'état initial contient token (pour la connexion) et user (les infos de l'utilisateur).
-//loginSuccess : Met à jour token et user quand l'utilisateur se connecte.
-//logout : Réinitialise l'état quand l'utilisateur se déconnecte.
-//store.js : Ajoute userSlice au store Redux.
+
+// Explication du code :
+// initialState : L'état initial contient token (pour la connexion) et user (les infos de l'utilisateur).
+// loginSuccess : Met à jour token et user quand l'utilisateur se connecte.
+// logout : Réinitialise l'état quand l'utilisateur se déconnecte.
+// updateUser : Met à jour les informations de l'utilisateur en fusionnant les nouvelles données avec les existantes.
+// store.js : Ajoute userSlice au store Redux.
