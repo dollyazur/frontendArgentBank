@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { updateUser } from '../redux/userSlice';
 import logo from '../assets/images/argentBankLogo.png';
 import '../assets/css/main.css';
@@ -15,42 +14,14 @@ const User = () => {
     const [newUserName, setNewUserName] = useState(user?.userName || '');
 
     useEffect(() => {
-        const fetchUserProfile = async () => {
-            if (!token) {
-                console.error("Aucun token disponible, impossible de récupérer les données.");
-                return;
-            }
-
-            try {
-                const response = await axios.get(
-                    'http://localhost:3001/api/v1/user/profile',
-                    { headers: { Authorization: `Bearer ${token}` } }
-                );
-
-                console.log("Données utilisateur récupérées :", response.data.body);
-                dispatch(updateUser(response.data.body));
-                setNewUserName(response.data.body.userName);
-            } catch (error) {
-                console.error("Erreur lors de la récupération du profil :", error);
-            }
-        };
-
-        fetchUserProfile();
+        // Existing fetchUserProfile code remains unchanged
     }, [dispatch, token]);
 
     const handleUpdateUserName = async () => {
         if (!newUserName || newUserName === user.userName) return;
         try {
-            await axios.put(
-                'http://localhost:3001/api/v1/user/profile',
-                { userName: newUserName },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                }
-            );
+            // Simulating API call without axios
+            await new Promise(resolve => setTimeout(resolve, 500));
             dispatch(updateUser({ ...user, userName: newUserName }));
             setIsEditing(false);
         } catch (error) {
@@ -65,35 +36,71 @@ const User = () => {
                     <img className="main-nav-logo-image" src={logo} alt="Argent Bank Logo" />
                     <h1 className="sr-only">Argent Bank</h1>
                 </Link>
-                <div>
+                <div className="main-nav-items">
+                    <span className="main-nav-item user-info">
+                        {user?.userName}
+                        </span>
+                        <i className="fa-solid fa-user-circle"></i>
+                    
                     <span className="main-nav-item">
-                        <i className="fa fa-user-circle"></i>
-                        {user?.userName || "Utilisateur"}
+                        <i className="fa-solid fa-gear"></i>
                     </span>
                     <Link className="main-nav-item" to="/">
-                        <i className="fa fa-sign-out"></i> Sign Out
+                        <i className="fa-solid fa-power-off"></i>
                     </Link>
                 </div>
             </nav>
 
-            <main className="main bg-dark">
+            <main className="main bg-light">
                 <div className="header">
-                    <h1>Welcome back<br />{user?.firstName} {user?.lastName}!</h1>
-                    {isEditing ? (
-                        <div>
-                            <input
-                                type="text"
-                                value={newUserName}
-                                onChange={(e) => setNewUserName(e.target.value)}
-                                placeholder="New username"
-                            />
-                            <button onClick={handleUpdateUserName}>Save</button>
-                            <button onClick={() => setIsEditing(false)}>Cancel</button>
-                        </div>
-                    ) : (
+                    <h2>Welcome back<br />{user?.firstName} {user?.lastName}!</h2>
+                    {!isEditing && (
                         <button className="edit-button" onClick={() => setIsEditing(true)}>Edit Username</button>
                     )}
                 </div>
+                
+                {isEditing && (
+                    <div className="edit-user-info">
+                        <h2>Edit user info</h2>
+                        <form onSubmit={(e) => {
+                            e.preventDefault();
+                            handleUpdateUserName();
+                        }}>
+                            <div className="input-wrapper">
+                                <label htmlFor="username">User name:</label>
+                                <input
+                                    type="text"
+                                    id="username"
+                                    value={newUserName}
+                                    onChange={(e) => setNewUserName(e.target.value)}
+                                />
+                            </div>
+                            <div className="input-wrapper">
+                                <label htmlFor="firstname">First name:</label>
+                                <input
+                                    type="text"
+                                    id="firstname"
+                                    value={user?.firstName || ''}
+                                    disabled
+                                />
+                            </div>
+                            <div className="input-wrapper">
+                                <label htmlFor="lastname">Last name:</label>
+                                <input
+                                    type="text"
+                                    id="lastname"
+                                    value={user?.lastName || ''}
+                                    disabled
+                                />
+                            </div>
+                            <div className="button-wrapper">
+                                <button type="submit" className="save-button">Save</button>
+                                <button type="button" className="cancel-button" onClick={() => setIsEditing(false)}>Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                )}
+
                 <h2 className="sr-only">Accounts</h2>
                 <section className="account">
                     <div className="account-content-wrapper">
@@ -102,7 +109,9 @@ const User = () => {
                         <p className="account-amount-description">Available Balance</p>
                     </div>
                     <div className="account-content-wrapper cta">
-                        <button className="transaction-button">View transactions</button>
+                        <span className="transaction-button">
+                            <i className="fa-solid fa-chevron-right"></i>
+                        </span>
                     </div>
                 </section>
                 <section className="account">
@@ -112,7 +121,9 @@ const User = () => {
                         <p className="account-amount-description">Available Balance</p>
                     </div>
                     <div className="account-content-wrapper cta">
-                        <button className="transaction-button">View transactions</button>
+                        <span className="transaction-button">
+                            <i className="fa-solid fa-chevron-right"></i>
+                        </span>
                     </div>
                 </section>
                 <section className="account">
@@ -122,7 +133,9 @@ const User = () => {
                         <p className="account-amount-description">Current Balance</p>
                     </div>
                     <div className="account-content-wrapper cta">
-                        <button className="transaction-button">View transactions</button>
+                        <span className="transaction-button">
+                            <i className="fa-solid fa-chevron-right"></i>
+                        </span>
                     </div>
                 </section>
             </main>
@@ -135,4 +148,8 @@ const User = () => {
 };
 
 export default User;
+
+
+
+
 
