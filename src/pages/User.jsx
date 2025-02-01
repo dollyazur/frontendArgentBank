@@ -32,7 +32,7 @@ const User = () => {
     return (
         <>
             <nav className="main-nav">
-                <Link className="main-nav-logo" to="/">
+                <Link className="main-nav-logo" to="/" aria-label="Retour à l'accueil">
                     <img className="main-nav-logo-image" src={logo} alt="Argent Bank Logo" />
                     <h1 className="sr-only">Argent Bank</h1>
                 </Link>
@@ -45,7 +45,7 @@ const User = () => {
                     <span className="main-nav-item">
                         <i className="fa-solid fa-gear"></i>
                     </span>
-                    <Link className="main-nav-item" to="/">
+                    <Link className="main-nav-item" to="/"aria-label="Sign out">
                         <i className="fa-solid fa-power-off"></i>
                     </Link>
                 </div>
@@ -105,7 +105,7 @@ const User = () => {
                 <section className="account">
                     <div className="account-content-wrapper">
                         <h3 className="account-title">Argent Bank Checking (x8349)</h3>
-                        <p className="account-amount">$2,082.79</p>
+                        <h4 className="account-amount">$2,082.79</h4>
                         <p className="account-amount-description">Available Balance</p>
                     </div>
                     <div className="account-content-wrapper cta">
@@ -117,7 +117,7 @@ const User = () => {
                 <section className="account">
                     <div className="account-content-wrapper">
                         <h3 className="account-title">Argent Bank Savings (x6712)</h3>
-                        <p className="account-amount">$10,928.42</p>
+                        <h4 className="account-amount">$10,928.42</h4>
                         <p className="account-amount-description">Available Balance</p>
                     </div>
                     <div className="account-content-wrapper cta">
@@ -129,7 +129,7 @@ const User = () => {
                 <section className="account">
                     <div className="account-content-wrapper">
                         <h3 className="account-title">Argent Bank Credit Card (x8349)</h3>
-                        <p className="account-amount">$184.30</p>
+                        <h4 className="account-amount">$184.30</h4>
                         <p className="account-amount-description">Current Balance</p>
                     </div>
                     <div className="account-content-wrapper cta">
