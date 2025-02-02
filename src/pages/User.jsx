@@ -32,7 +32,7 @@ const User = () => {
     return (
         <>
             <nav className="main-nav">
-                <Link className="main-nav-logo" to="/" aria-label="Retour à l'accueil">
+                <Link className="main-nav-logo" >
                     <img className="main-nav-logo-image" src={logo} alt="Argent Bank Logo" />
                     <h1 className="sr-only">Argent Bank</h1>
                 </Link>
