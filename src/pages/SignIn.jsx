@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { loginSuccess } from '../redux/userSlice';
 import '../assets/css/main.css';
-import logo from '../assets/images/argentBankLogo.png';
+import logo from '../assets/images/argentBankLogo.webp';
 
 const SignIn = () => {
     const [email, setEmail] = useState('');

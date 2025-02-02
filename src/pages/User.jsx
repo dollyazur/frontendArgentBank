@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { updateUser } from '../redux/userSlice';
-import logo from '../assets/images/argentBankLogo.png';
+import logo from '../assets/images/argentBankLogo.webp';
 import '../assets/css/main.css';
 
 const User = () => {
