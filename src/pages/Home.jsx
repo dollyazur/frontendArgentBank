@@ -2,6 +2,7 @@ import bankLogo from "../assets/images/argentBankLogo.webp";
 import chatIcon from "../assets/images/icon-chat.webp";
 import moneyIcon from "../assets/images/icon-money.webp";
 import securityIcon from "../assets/images/icon-security.webp";
+import Footer from "../components/footer/footer";
 
 const Home = () => {
   return (
@@ -51,10 +52,9 @@ const Home = () => {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="footer">
-        <p className="footer-text">Copyright 2020 Argent Bank</p>
-      </footer>
+  
+      
+      <Footer />
     </>
   );
 };
