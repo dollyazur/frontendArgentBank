@@ -175,35 +175,7 @@ body {
   }
 }
 
-.features {
-  display: flex;
-  flex-direction: column;
-}
 
-@media (min-width: 920px) {
-  .features {
-    flex-direction: row;
-  }
-}
-
-.feature-icon {
-  width: 100px;
-  border: 10px solid #00bc77;
-  border-radius: 50%;
-  padding: 1rem;
-}
-
-.feature-item {
-  flex: 1;
-  padding: 2.5rem;
-}
-
-.feature-item-title {
-  color: #222;
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
 
 .sign-in-button {
   display: block;
@@ -263,48 +235,6 @@ body {
 
 
 
-.account {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid black;
-  background-color: #3c3c3c;
-  width: 80%;
-  margin: 0 auto 2rem auto;
-  flex-direction: row;
-  padding: 1.5rem;
-  box-sizing: border-box;
-  text-align: left;
-  color: #fff;
-}
-
-.account-amount {
-  margin: 0;
-  font-size: 2.5rem;
-  font-weight: bold;
-}
-
-.account-amount-description {
-  margin: 0;
-}
-
-.account-title {
-  margin: 0;
-  padding: 0;
-  font-size: 1rem;
-  font-weight: normal;
-}
-
-.account-content-wrapper {
-  width: 100%;
-  flex: 1;
-}
-
-.account-content-wrapper.cta {
-  flex: 0;
-  width: auto;
-  align-self: center;
-}
 
 .transaction-button {
   background-color: transparent;
@@ -372,13 +302,6 @@ body {
 
 
 @media (min-width: 720px) {
-  .account {
-    flex-direction: row;
-  }
-
-  .account-content-wrapper.cta {
-    flex: 0;
-  }
 
   .transaction-button {
     width: 200px;
