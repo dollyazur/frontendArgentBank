@@ -9,6 +9,7 @@ import logo from '../assets/images/argentBankLogo.webp';
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -31,9 +32,16 @@ const SignIn = () => {
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             
-        
-            dispatch(loginSuccess({ token, user: userResponse.data.body})); // Stocke le token
+            const userData = { token, user: userResponse.data.body };
 
+            dispatch(loginSuccess(userData));
+
+            if (rememberMe) {
+                localStorage.setItem('user', JSON.stringify(userData));
+            } else {
+                sessionStorage.setItem('user', JSON.stringify(userData));
+            }
+            console.log('User data saved:', userData); // Pour vérifier dans la console
            
             navigate('/user'); // Redirige vers la page User après connexion
         } catch (error) {
@@ -82,7 +90,8 @@ const SignIn = () => {
                             />
                         </div>
                         <div className="input-remember">
-                            <input type="checkbox" id="remember-me" />
+                            <input type="checkbox" id="remember-me" checked={rememberMe}
+                                onChange={(e) => setRememberMe(e.target.checked)}/>
                             <label htmlFor="remember-me">Remember me</label>
                         </div>
                         {error && <p className="error-message">{error}</p>}
@@ -100,3 +109,4 @@ const SignIn = () => {
 };
 
 export default SignIn;
+ 

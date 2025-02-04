@@ -5,6 +5,23 @@ html {
   text-align: center;
   color: #2c3e50;
 }
+ 
+.error_404 h2 {
+  color:#42b983;
+  font-weight: 400;
+  padding-bottom: 60px;
+}
+.error_404 a {
+  color: #157846;
+ 
+  font-weight: 400;
+}
+
+.error_404 img {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  width: 35%;
+}
 
 body {
   margin: 0;
