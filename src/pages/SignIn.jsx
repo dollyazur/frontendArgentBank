@@ -5,6 +5,7 @@ import axios from 'axios';
 import { loginSuccess } from '../redux/userSlice';
 import '../assets/css/main.css';
 import logo from '../assets/images/argentBankLogo.webp';
+import Footer from '../components/footer/footer';
 
 const SignIn = () => {
     const [email, setEmail] = useState('');
@@ -101,9 +102,8 @@ const SignIn = () => {
                     </form>
                 </section>
             </main>
-            <footer className="footer">
-                <p className="footer-text">Copyright 2020 Argent Bank</p>
-            </footer>
+            
+            <Footer />
         </>
     );
 };

@@ -1,30 +1,34 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import React Router 
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from './redux/userSlice';
-import Home from './pages/Home'; // ✅ Ajout de Home
+import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import User from './pages/User';
 import Erreur from './pages/Erreur';
 import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
-
     const dispatch = useDispatch();
-    const storedUser = localStorage.getItem('user') || sessionStorage.getItem('user');
-    if (storedUser) {
-        dispatch(loginSuccess(JSON.parse(storedUser)));
-        console.log('Stored user data loaded:', storedUser); // Pour vérifier dans la console
-    }
+
     useEffect(() => {
-       
+        const storedUser = localStorage.getItem('user') || sessionStorage.getItem('user');
+        if (storedUser) {
+            try {
+                const parsedUser = JSON.parse(storedUser);
+                dispatch(loginSuccess(parsedUser));
+                console.log('Stored user data loaded:', parsedUser);
+            } catch (error) {
+                console.error('Error parsing stored user data:', error);
+            }
+        }
     }, [dispatch]);
 
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<Home />} /> {/* ✅ Home est maintenant la page d'accueil */}
-                <Route path="/sign-in" element={<SignIn />} /> {/* ✅ SignIn déplacé sur /sign-in */}
+                <Route path="/" element={<Home />} />
+                <Route path="/sign-in" element={<SignIn />} />
                 <Route path="/user" element={<PrivateRoute><User /></PrivateRoute>} />
                 <Route path="/*" element={<Erreur />} />
             </Routes>
