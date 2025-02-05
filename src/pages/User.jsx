@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { updateUser, logout } from '../redux/userSlice';
+import { updateUser, logout, loadUser } from '../redux/userSlice';
 import logo from '../assets/images/argentBankLogo.webp';
 import Account from "../components/account/account";
 import Footer from '../components/footer/footer';
@@ -10,24 +10,31 @@ import '../assets/css/main.css';
 const User = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    
+    // Chargement des données Redux
     const user = useSelector((state) => state.user.user);
     const token = useSelector((state) => state.user.token);
 
     const [isEditing, setIsEditing] = useState(false);
-    const [newUserName, setNewUserName] = useState(user?.userName || '');
+    const [newUserName, setNewUserName] = useState("");
+
+    useEffect(() => {
+        dispatch(loadUser()); // Charge les données du localStorage
+    }, [dispatch]);
 
     useEffect(() => {
         if (!token) {
             navigate('/sign-in');
+        } else if (user) {
+            setNewUserName(user.userName); // Met à jour le champ username
         }
-    }, [token, navigate]);
+    }, [token, user, navigate]);
 
     const handleUpdateUserName = async () => {
-        if (!newUserName || newUserName === user.userName) return;
+        if (!newUserName || newUserName === user?.userName) return;
         try {
-            // Simulating API call without axios
             await new Promise(resolve => setTimeout(resolve, 500));
-            dispatch(updateUser({ ...user, userName: newUserName }));
+            dispatch(updateUser({ userName: newUserName }));
             setIsEditing(false);
         } catch (error) {
             console.error('Erreur lors de la mise à jour du nom d\'utilisateur:', error);
@@ -36,24 +43,19 @@ const User = () => {
 
     const handleLogout = () => {
         dispatch(logout());
-        localStorage.removeItem('user');
-        sessionStorage.removeItem('user');
         navigate('/');
     };
 
     return (
         <>
             <nav className="main-nav">
-                <Link className="main-nav-logo" >
+                <Link className="main-nav-logo">
                     <img className="main-nav-logo-image" src={logo} alt="Argent Bank Logo" />
                     <h1 className="sr-only">Argent Bank</h1>
                 </Link>
                 <div className="main-nav-items">
-                    <span className="main-nav-item user-info">
-                        {user?.userName}
-                        </span>
-                        <i className="fa-solid fa-user-circle"></i>
-                    
+                    <span className="main-nav-item user-info">{user?.userName}</span>
+                    <i className="fa-solid fa-user-circle"></i>
                     <span className="main-nav-item">
                         <i className="fa-solid fa-gear"></i>
                     </span>
@@ -125,8 +127,3 @@ const User = () => {
 };
 
 export default User;
-
-
-
-
-

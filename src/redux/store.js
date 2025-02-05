@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userReducer from './userSlice.min.js'; // Import du reducer user
+import userReducer from './userSlice'; // Correction de l'import
 
 export const store = configureStore({
     reducer: {
-        user: userReducer, // Ajout du reducer user
-    }, 
+        user: userReducer,
+    },
+    devTools: import.meta.env.MODE !== 'production', // Adapté pour Vite
 });
 
 export default store;
+

@@ -37,16 +37,13 @@ const SignIn = () => {
 
             dispatch(loginSuccess(userData));
 
-            if (rememberMe) {
-                localStorage.setItem('user', JSON.stringify(userData));
-            } else {
-                sessionStorage.setItem('user', JSON.stringify(userData));
-            }
-            console.log('User data saved:', userData); // Pour vérifier dans la console
+            const storage = rememberMe ? localStorage : sessionStorage;
+            storage.setItem('user', JSON.stringify(userData));
+            console.log('User data saved:', userData);
            
-            navigate('/user'); // Redirige vers la page User après connexion
+            navigate('/user');
         } catch (error) {
-            console.error('Erreur de connexion :', error); // Affiche l'erreur en console
+            console.error('Erreur de connexion :', error);
             setError('Email ou mot de passe incorrect.');
         }
     };
