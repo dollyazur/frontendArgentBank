@@ -35,7 +35,7 @@ const User = () => {
         if (!newUserName || newUserName === user?.userName) return;
 
         try {
-            // ✅ Envoi la requête PUT directement ici
+            //  Envoi la requête PUT 
             const response = await axios.put(
                 'http://localhost:3001/api/v1/user/profile',
                 { userName: newUserName },
@@ -44,11 +44,11 @@ const User = () => {
 
             if (response.status === 200) {
                 const updatedUser = { ...user, userName: newUserName };
-                dispatch(updateUser(updatedUser)); // ✅ Met à jour Redux avec le nouveau userName
+                dispatch(updateUser(updatedUser)); // Met à jour Redux avec le nouveau userName
                 setIsEditing(false);
             }
         } catch (error) {
-            console.error('❌ Erreur lors de la mise à jour du nom d\'utilisateur :', error);
+            console.error('Erreur lors de la mise à jour du nom d\'utilisateur :', error);
         }
     };
     

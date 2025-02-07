@@ -1,4 +1,4 @@
-import image from "../assets/images/android-chrome-512x512.png";
+import image from "../assets/images/android-chrome-512x512.webp";
 import "../assets/css/main.css";
 import Footer from "../components/footer/footer";
 
