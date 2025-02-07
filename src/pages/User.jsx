@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { updateUser, logout, loadUser } from '../redux/userSlice';
+import axios from 'axios';
 import logo from '../assets/images/argentBankLogo.webp';
 import Account from "../components/account/account";
 import Footer from '../components/footer/footer';
@@ -32,15 +33,25 @@ const User = () => {
 
     const handleUpdateUserName = async () => {
         if (!newUserName || newUserName === user?.userName) return;
+
         try {
-            await new Promise(resolve => setTimeout(resolve, 500));
-            dispatch(updateUser({ userName: newUserName }));
-            setIsEditing(false);
+            // ✅ Envoi la requête PUT directement ici
+            const response = await axios.put(
+                'http://localhost:3001/api/v1/user/profile',
+                { userName: newUserName },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            if (response.status === 200) {
+                const updatedUser = { ...user, userName: newUserName };
+                dispatch(updateUser(updatedUser)); // ✅ Met à jour Redux avec le nouveau userName
+                setIsEditing(false);
+            }
         } catch (error) {
-            console.error('Erreur lors de la mise à jour du nom d\'utilisateur:', error);
+            console.error('❌ Erreur lors de la mise à jour du nom d\'utilisateur :', error);
         }
     };
-
+    
     const handleLogout = () => {
         dispatch(logout());
         navigate('/');
