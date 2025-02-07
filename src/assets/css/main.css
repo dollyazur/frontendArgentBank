@@ -6,15 +6,16 @@ html {
   color: #2c3e50;
 }
  
-.error_404 h2 {
-  color:#42b983;
-  font-weight: 400;
+.error_404 h1 {
+  color:#157846;
+  font-weight: 500;
   padding-bottom: 60px;
 }
 .error_404 a {
   color: #157846;
- 
+ font-size : x-large;
   font-weight: 400;
+ padding-bottom: 20px;
 }
 
 .error_404 img {
