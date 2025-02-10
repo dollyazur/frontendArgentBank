@@ -8,18 +8,21 @@ const PrivateRoute = ({ children }) => {
     const dispatch = useDispatch();
     const token = useSelector((state) => state.user.token);
     const user = useSelector((state) => state.user.user);
+    const isLoading = useSelector((state) => state.user.isLoading);
+
 
     useEffect(() => {
+
         if (!token && !user) {
             dispatch(loadUser());
         }
     }, [dispatch, token, user]);
 
-    if (!token && !user) {
-        return null; // Ou un composant de chargement
+    if (isLoading) {
+        return <div>Chargement...</div>; // Ajout d'un indicateur de chargement
     }
 
-    return token || user ? children : <Navigate to="/sign-in" />;
+    return token && user ? children : <Navigate to="/please-login" replace />;
 };
 
 PrivateRoute.propTypes = {

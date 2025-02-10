@@ -24,6 +24,20 @@ html {
   width: 25%;
 }
 
+.please-login h1 {
+  color:#157846;
+  margin-top: 40px;
+}
+
+.please-login p {
+  color:#157846;
+}
+.please-login a {
+  color: #157846;
+ font-size : x-large;
+  font-weight: 400;
+ padding-bottom: 20px;
+}
 body {
   margin: 0;
   display: flex;

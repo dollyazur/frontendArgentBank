@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import User from './pages/User';
 import Erreur from './pages/Erreur';
+import PleaseLogin from './pages/PleaseLogin';
 import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
@@ -21,9 +22,10 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/sign-in" element={<SignIn />} />
+                <Route path="/please-login" element={<PleaseLogin />} />
                 <Route path="/user" element={<PrivateRoute><User /></PrivateRoute>} />
                 <Route path="/*" element={<Erreur />} />
-            </Routes>
+                            </Routes>
         </Router>
     );
 };
