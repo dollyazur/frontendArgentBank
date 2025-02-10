@@ -20,7 +20,7 @@ const User = () => {
     const [newUserName, setNewUserName] = useState("");
 
     useEffect(() => {
-        dispatch(loadUser()); // Charge les données du localStorage
+        dispatch(loadUser()); // Charge les données dans le localStorage
     }, [dispatch]);
 
     useEffect(() => {
@@ -35,7 +35,8 @@ const User = () => {
         if (!newUserName || newUserName === user?.userName) return;
 
         try {
-            //  Envoi la requête PUT 
+            //  Envoi la requête http PUT  afin que le username reste stocké dans la base de données (=mongoDB)
+            //axios = client http de node.js 
             const response = await axios.put(
                 'http://localhost:3001/api/v1/user/profile',
                 { userName: newUserName },

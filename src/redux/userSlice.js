@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+const initialState = { //avant connexion
   user: null,
   token: null,
 };
@@ -9,12 +9,12 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    loginSuccess: (state, action) => {
+    loginSuccess: (state, action) => { //stockage des infos dans redux et dans le localstorage
       state.user = action.payload.user;
       state.token = action.payload.token;
       localStorage.setItem('user', JSON.stringify(action.payload));
     },
-    logout: (state) => {
+    logout: (state) => { //nettoyage complet
       state.user = null;
       state.token = null;
       localStorage.removeItem('user');
@@ -25,7 +25,7 @@ const userSlice = createSlice({
         const storedData = JSON.parse(localStorage.getItem('user'));
         if (storedData) {
           storedData.user = state.user;
-          localStorage.setItem('user', JSON.stringify(storedData));
+          localStorage.setItem('user', JSON.stringify(storedData)); //evite de recharger les données si déjà dans le localstorage
         }
       }
     },

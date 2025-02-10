@@ -25,9 +25,9 @@ const SignIn = () => {
                 password,
             });
 
-            const { token } = response.data.body;
+            const { token } = response.data.body; //si email et password qu'on vient de post sont bons, on recupère le token
 
-            //deux users donc tenir compte du token pour récup les infos
+            //plusieurs users donc tenir compte du token pour récup les infos
             const userResponse = await axios.get(
                 'http://localhost:3001/api/v1/user/profile',
                 { headers: { Authorization: `Bearer ${token}` } }
@@ -35,13 +35,13 @@ const SignIn = () => {
             
             const userData = { token, user: userResponse.data.body };
 
-            dispatch(loginSuccess(userData));
+            dispatch(loginSuccess(userData)); //stocke les infos dans redux et localstorage
 
             const storage = rememberMe ? localStorage : sessionStorage;
             storage.setItem('user', JSON.stringify(userData));
             console.log('User data saved:', userData);
            
-            navigate('/user');
+            navigate('/user'); //redirection vers la page/user
         } catch (error) {
             console.error('Erreur de connexion :', error);
             setError('Email ou mot de passe incorrect.');
